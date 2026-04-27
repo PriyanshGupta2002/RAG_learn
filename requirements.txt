@@ -10,3 +10,9 @@ pandas
 msoffcrypto-tool
 openpyxl
 langchain-text-splitters
+sentence-transformers
+faiss-cpu
+chromadb
+langchain-google-genai
+python-dotenv
+langchain-cohere

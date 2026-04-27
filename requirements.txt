@@ -1,0 +1,12 @@
+langchain
+langchain-core
+langchain-community
+pypdf
+pymupdf
+ipykernel
+unstructured
+networkx
+pandas
+msoffcrypto-tool
+openpyxl
+langchain-text-splitters

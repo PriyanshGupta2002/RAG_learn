@@ -1,5 +1,3 @@
-Here is the current content of your page in Markdown format so you can easily copy it:
-
 ```markdown
 Perfect — since you’re using **uv** (the ultra-fast Python package manager), we can make your README even cleaner by showing uv-based setup instructions instead of pip/venv. Here’s a refined version tailored for uv:
 

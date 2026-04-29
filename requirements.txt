@@ -1,6 +1,7 @@
 langchain
 langchain-core
 langchain-community
+langchain-groq
 pypdf
 pymupdf
 ipykernel
@@ -15,4 +16,4 @@ faiss-cpu
 chromadb
 langchain-google-genai
 python-dotenv
-langchain-cohere
+langchain-openai

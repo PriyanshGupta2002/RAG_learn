@@ -17,3 +17,6 @@ chromadb
 langchain-google-genai
 python-dotenv
 langchain-openai
+beautifulsoup4
+lxml
+requests

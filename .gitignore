@@ -1,1 +1,31 @@
+# Environment
 .env
+.env.local
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.Python
+
+# Data & Generated files
+data/vector_store/
+data/pdf_files/
+data/excel_files/
+data/html_files/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Jupyter
+.ipynb_checkpoints/

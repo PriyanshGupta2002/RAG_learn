@@ -1,9 +1,8 @@
 from src.embeddings import create_embeddings
-import chromadb
+from src.vectorStore import getCollection
 def retreiver(query,top_k,score_threshold=0.0):
-    query_embeddings = create_embeddings([query])
-    client = chromadb.PersistentClient(path="./chroma_db")
-    collection = client.get_or_create_collection(name="documents",metadata={"hnsw:space": "cosine"})
+    query_embeddings = create_embeddings([query]).tolist()  # Convert to list for ChromaDB
+    collection = getCollection()
     try:
         results =  collection.query(
             query_embeddings=query_embeddings,
@@ -12,11 +11,14 @@ def retreiver(query,top_k,score_threshold=0.0):
 
         retreived_docs = []
         
-        if results['documents'] and results['documents'][0]:
-            documents = results['documents'][0]
-            metadatas = results['metadatas'][0]
-            distances = results['distances'][0]
-            ids = results['ids'][0]
+        if not results['documents'] or not results['documents'][0]:
+            print("No documents found.")
+            return retreived_docs
+
+        documents = results['documents'][0]
+        metadatas = results['metadatas'][0]
+        distances = results['distances'][0]
+        ids = results['ids'][0]
         
         for i,(doc,metadata,distance,id) in enumerate(zip(documents,metadatas,distances,ids)):
             similarity_score = 1 - distance  # Convert distance to similarity score (assuming cosine distance)

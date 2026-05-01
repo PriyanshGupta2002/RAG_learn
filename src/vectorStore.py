@@ -1,12 +1,18 @@
 
+
 import chromadb
-import faiss
-import numpy as np
-import chromadb
+import uuid
+
+_client = chromadb.PersistentClient(path="./chroma_db")
+def getCollection():
+    collection = _client.get_or_create_collection(name="documents",metadata={"hnsw:space": "cosine"})
+    return collection
 
 def create_vector_store(embeddings, document_chunks):
-    client = chromadb.PersistentClient(path="./chroma_db")
-    collection = client.get_or_create_collection(name="documents",metadata={"hnsw:space": "cosine"})
+    collection = getCollection()
+    if collection.count() > 0:
+        print(f"Collection already has {collection.count()} items. Skipping vector store creation.")
+        return
     # Add document chunks and their corresponding embeddings to the collection
     embedding_list = []
     docTexts=[]
@@ -14,7 +20,7 @@ def create_vector_store(embeddings, document_chunks):
     metaDatas=[]
 
     for i,(doc,embedding) in enumerate(zip(document_chunks,embeddings)):
-        ids.append(str(i))
+        ids.append(str(uuid.uuid4()))  # Generate a unique ID for each document chunk
         docTexts.append(doc.page_content)
         metadata = dict(doc.metadata)  # Convert metadata to a regular dictionary
         metadata["source"] = doc.metadata.get("source_file", "unknown")  # Add source file info to metadata

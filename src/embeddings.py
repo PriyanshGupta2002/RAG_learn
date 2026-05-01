@@ -1,10 +1,10 @@
 
 from sentence_transformers import SentenceTransformer
+_model = SentenceTransformer("BAAI/bge-base-en-v1.5")
 
 # Load the model
 def create_embeddings(document_chunks):
-    model = SentenceTransformer("BAAI/bge-base-en-v1.5")
     # Generate embeddings for the document chunks
-    embeddings = model.encode(document_chunks)
+    embeddings = _model.encode(document_chunks)
     return embeddings
 

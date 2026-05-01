@@ -1,8 +1,9 @@
-from src.retreival import retreiver
-from langchain_groq import ChatGroq
-import os
+from src.retrieval import retreiver
 from dotenv import load_dotenv
 load_dotenv()
+from langchain_groq import ChatGroq
+import os
+
 def search(query):
     top_k = 5
     score_threshold = 0.1
@@ -17,11 +18,11 @@ def search(query):
     llm = ChatGroq(
         api_key=grok_api_key,
         model="openai/gpt-oss-120b",
-        temperature=0.7,
+        temperature=0.1,
         max_tokens=1024,
     )
 
-    print(f"✓ Groq LLM initialized with model: mixtral-8x7b-32768")
+    print(f"✓ Groq LLM initialized with model: {llm.model_name} and temperature: {llm.temperature}")
     
     if not retreived_docs:
         return "No relevant documents found to answer the query. Please try a different question or load more data."
@@ -34,7 +35,7 @@ def search(query):
         "Answer:"
     )
     try:
-        response = llm.invoke(prompt.format(context=context, query=query))
+        response = llm.invoke(prompt)
         # Handle different response types
         if hasattr(response, 'content'):
             answer = response.content.strip()
